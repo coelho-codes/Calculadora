@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="calculadora_style.css">
+		<title>Calculadora</title>
+	</head>
+	<body>
+		<div id="calculator">
+			<input type="text" name="screen" id="screen">
+			<div id="body">
+				<div id="first-row">
+					<input class="button" id="7" type="button" name="7" value="7">
+					<input class="button" id="8" type="button" name="8" value="8">
+					<input class="button" id="9" type="button" name="9" value="9">
+					<input class="button" id="+" type="button" name="addition" value="+">
+				</div>
+				<div id="second-row">
+					<input class="button" id="4" type="button" name="4" value="4">
+					<input class="button" id="5" type="button" name="5" value="5">
+					<input class="button" id="6" type="button" name="6" value="6">
+					<input class="button" id="-" type="button" name="subtraction" value="-">
+				</div>
+				<div id="third-row">
+					<input class="button" id="1" type="button" name="1" value="1">
+					<input class="button" id="2" type="button" name="2" value="2">
+					<input class="button" id="3" type="button" name="3" value="3">
+					<input class="button" id="*" type="button" name="multiplication" value="*">
+				</div>
+				<div id="fourth-row">
+					<input class="button" id="0" type="button" name="0" value="0">
+					<input class="button" id="equalto" type="button" name="=" value="=">
+					<input class="button" id="CE" type="button" name="clear" value="CE">
+					<input class="button" id="/" type="button" name="division" value="/">
+				</div>
+			</div>
+
+		<script type="text/javascript">
+			let screen = document.getElementById('screen');
+
+			//Itera sobre o array retornado de getElementsByClassName e adiciona o evento "click" a cada elemento.
+			let classes = document.getElementsByClassName("button")
+			for (let i = 0; i < classes.length; i++) {
+				classes[i].addEventListener("click", screenInput);
+			}
+
+			//Monta a lógica da funcionalidade de uma calculadora
+			function screenInput(e) {
+				let buttonPressed = e.target.value;                 //Atribui o valor do botão clicado
+				screen.value += buttonPressed;                      //Concatena o valor do botão à tela
+				if (screen.value.indexOf('=') != -1) {
+					if (screen.value.indexOf('+') != -1) {
+						let positionOfOperator = screen.value.indexOf('+');
+						let portionOne = parseInt(screen.value.substring(0, positionOfOperator));
+						let portionTwo = parseInt(screen.value.substring(positionOfOperator + 1,));
+						screen.value = portionOne + portionTwo;
+					} else if (screen.value.indexOf('-') != -1) {
+						let positionOfOperator = screen.value.indexOf('-');
+						let portionOne = parseInt(screen.value.substring(0, positionOfOperator));
+						let portionTwo = parseInt(screen.value.substring(positionOfOperator + 1,));
+						screen.value = portionOne - portionTwo;
+					} else if (screen.value.indexOf('*') != -1) {
+						let positionOfOperator = screen.value.indexOf('*');
+						let portionOne = parseInt(screen.value.substring(0, positionOfOperator));
+						let portionTwo = parseInt(screen.value.substring(positionOfOperator + 1,));
+						screen.value = portionOne * portionTwo; 
+					} else if (screen.value.indexOf('/') != -1) {
+						let positionOfOperator = screen.value.indexOf('/');
+						let portionOne = parseInt(screen.value.substring(0, positionOfOperator));
+						let portionTwo = parseInt(screen.value.substring(positionOfOperator + 1,));
+						screen.value = portionOne / portionTwo;
+					}
+				} else if (screen.value.indexOf('CE') != -1) {
+					screen.value = "";
+				}
+			}
+		</script>
+	</body>
+</html>
+
